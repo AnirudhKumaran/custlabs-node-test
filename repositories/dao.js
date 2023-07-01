@@ -10,18 +10,17 @@ export default class {
     static setupDbForDev() {
         //  This sets up a DB in memory to be used by creating tables, inserting values, etc.
         db.serialize(function () {
-            const createUsersTable = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT, password text)";
-            db.run(createUsersTable);
-            const createItemsTable = "CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price NUMERIC)";
-            db.run(createItemsTable);
-            let password = '123'
+            const createAccountsTable = "CREATE TABLE IF NOT EXISTS accounts (emailId TEXT PRIMARY KEY ,accountId TEXT, accountName text,appsecrettoken text)";
+            db.run(createAccountsTable);
+            const createDestinationTable = "CREATE TABLE IF NOT EXISTS destination (emailId TEXT, destinationUrl TEXT,destinationMtd TEXT, destinationHeaders TEXT)";
+            db.run(createDestinationTable);
 
-            bcrypt.hash(password, saltRounds, function (err, hash) {
-                const insertUsers = `INSERT INTO users (username, password) VALUES ('foo', '${hash}'), ('bar', '${hash}');`
-                db.run(insertUsers);
-            });
-            const insertItems = `INSERT INTO items (name, price) VALUES ('book', 12.99), ('t-shirt', 15.99), ('milk', 3.99);`
-            db.run(insertItems);
+            // bcrypt.hash(password, saltRounds, function (err, hash) {
+            //     const insertUsers = `INSERT INTO users (username, password) VALUES ('foo', '${hash}'), ('bar', '${hash}');`
+            //     db.run(insertUsers);
+            // });
+            // const insertItems = `INSERT INTO items (name, price) VALUES ('book', 12.99), ('t-shirt', 15.99), ('milk', 3.99);`
+            // db.run(insertItems);
         });
         //  db.close();
     }

@@ -44,17 +44,17 @@ export const authenticated = (req, res, next) => {
 const returnInvalidCredentials = (res) => {
   res.status(401);
   return res.json({ error: 'Invalid username or password' });
-
 }
 
 export const login = async (req, res) => {
+
   const { username, password } = req.body;
 
 
   const user = await repository.getUserByUsername(username)
 
   if (!user) {
-    returnInvalidCredentials(res)
+    return returnInvalidCredentials(res)
   }
 
   bcrypt.compare(password, user.password, (err, result) => {

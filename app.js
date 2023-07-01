@@ -4,6 +4,9 @@ import dao from './repositories/dao';
 import { authenticated, authMiddleware } from './controllers/auth.controller';
 import authRoutes from './routes/auth.routes';
 import itemsRoutes from './routes/items.routes';
+import userRoutes from './routes/user.routes'
+import destinRoutes from './routes/destination.routes'
+import dataRoutes from './routes/data.routes'
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 import * as sqlite3 from 'sqlite3'
@@ -32,4 +35,7 @@ dao.setupDbForDev();
 ////////////////////////////////////
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/destination', destinRoutes);
+app.use('/server/incoming_data',dataRoutes)
 app.use('/api/items', authenticated, itemsRoutes);
